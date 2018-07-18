@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>coop.rchain</groupId>
+    <artifactId>sodium-native-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>sodium-native-parent</name>
+    <description>TBD</description>
+    <!-- FIXME change it to the project's website -->
+    <url>https://www.rchain.coop</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <github.org>rchain</github.org>
+        <github.repo>sodium-native</github.repo>
+    </properties>
+
+    <scm>
+        <connection>scm:git:git@github.com:${github.org}/${github.repo}.git</connection>
+        <developerConnection>scm:git:git@github.com:${github.org}/${github.repo}.git</developerConnection>
+        <url>git@github.com:${github.org}/${github.repo}.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/${github.org}/${github.repo}/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>travis-ci</system>
+        <url>https://travis-ci.org/${github.org}/${github.repo}</url>
+    </ciManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <build>
+        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.8</version>
+                    <executions>
+                        <execution>
+                            <id>mkdir-for-copy</id>
+                            <phase>generate-sources</phase>
+                            <configuration>
+                                <tasks>
+                                    <mkdir dir="${project.basedir}/target/native/coop/rchain"/>
+                                </tasks>
+                            </configuration>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.0.2</version>
+                    <configuration>
+                        <classesDirectory>${project.basedir}/target/native</classesDirectory>
+                        <includes>
+                            <include>**/*.so</include>
+                            <include>**/*.dylib</include>
+                            <include>**/*.dll</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+                <!-- deployment -->
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.6.7</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <serverId>ossrh</serverId>
+                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    </configuration>
+                </plugin>
+                <!-- package signing -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.5</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>release-tag</id>
+            <modules>
+                <module>linux-x86_64</module>
+                <module>windows-x86_64</module>
+                <module>osx-x86_64</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <name>Linux</name>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <modules>
+                <module>linux-x86_64</module>
+                <module>windows-x86_64</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>osx</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <modules>
+                <module>osx-x86_64</module>
+            </modules>
+        </profile>
+    </profiles>
+
+</project>
