@@ -59,7 +59,7 @@
                             <phase>generate-sources</phase>
                             <configuration>
                                 <tasks>
-                                    <mkdir dir="${project.basedir}/target/native/coop/rchain"/>
+                                    <mkdir dir="${project.basedir}/target/native/coop/rchain/sodium_native"/>
                                 </tasks>
                             </configuration>
                             <goals>

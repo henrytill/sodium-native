@@ -39,7 +39,7 @@
                         <configuration>
                             <workingDirectory>${project.basedir}/../libsodium/</workingDirectory>
                             <executable>./configure</executable>
-                            <commandlineArgs>--prefix ${project.basedir}/target/native/coop/rchain</commandlineArgs>
+                            <commandlineArgs>--prefix ${project.basedir}/target/native/coop/rchain/sodium_native</commandlineArgs>
                         </configuration>
                     </execution>
                     <execution>
