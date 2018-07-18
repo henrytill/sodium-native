@@ -10,8 +10,53 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>coop.rchain</groupId>
-    <artifactId>linux-x86_64</artifactId>
+    <artifactId>sodium-native-linux-x86_64</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>autogen</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${project.basedir}/../libsodium/</workingDirectory>
+                            <executable>./autogen.sh</executable>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>configure</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${project.basedir}/../libsodium/</workingDirectory>
+                            <executable>./configure</executable>
+                            <commandlineArgs>--prefix ${project.basedir}/target/native/coop/rchain</commandlineArgs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>native</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${project.basedir}/../libsodium/</workingDirectory>
+                            <executable>make</executable>
+                            <commandlineArgs>clean install</commandlineArgs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
