@@ -17,7 +17,6 @@ addons:
       - mingw-w64
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then export JAVA_HOME=$(/usr/libexec/java_home); fi
-install:
-  - mvn -B -V install -DskipTests=true -Dgpg.skip=true -Dmaven.javadoc.skip=true
+install: true
 script:
   - mvn -B package -Dgpg.skip=true
