@@ -1,0 +1,12 @@
+diff --git a/src/libsodium/Makefile.am b/src/libsodium/Makefile.am
+index cbac4d19..b1e4be1f 100644
+--- a/src/libsodium/Makefile.am
++++ b/src/libsodium/Makefile.am
+@@ -175,6 +175,7 @@ randombytes_salsa20_randombytes_salsa20_random_CFLAGS = @CFLAGS_RDRAND@
+ libsodium_la_LDFLAGS = \
+ 	$(AM_LDFLAGS) \
+ 	-export-dynamic \
++	-avoid-version \
+ 	-no-undefined \
+ 	$(LIBTOOL_EXTRA_FLAGS)
+ 

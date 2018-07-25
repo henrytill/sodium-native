@@ -21,6 +21,18 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
+                        <id>patch</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${project.basedir}/../libsodium</workingDirectory>
+                            <executable>patch</executable>
+                            <commandlineArgs>-p1 -i ../avoid-version.patch</commandlineArgs>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>autogen</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -40,7 +52,7 @@
                         <configuration>
                             <workingDirectory>${project.basedir}/../libsodium</workingDirectory>
                             <executable>./configure</executable>
-                            <commandlineArgs>--prefix ${project.basedir}/target/native/coop/rchain/sodium_native</commandlineArgs>
+                            <commandlineArgs>--prefix ${project.basedir}/target/native/coop/rchain/sodium_native/linux-x86_64</commandlineArgs>
                         </configuration>
                     </execution>
                     <execution>

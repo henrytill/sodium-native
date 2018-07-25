@@ -59,7 +59,9 @@
                             <phase>generate-sources</phase>
                             <configuration>
                                 <tasks>
-                                    <mkdir dir="${project.basedir}/target/native/coop/rchain/sodium_native"/>
+                                    <mkdir dir="${project.basedir}/target/native/coop/rchain/sodium_native/linux-x86_64"/>
+                                    <mkdir dir="${project.basedir}/target/native/coop/rchain/sodium_native/osx-x86_64"/>
+                                    <mkdir dir="${project.basedir}/target/native/coop/rchain/sodium_native/windows-x86_64"/>
                                 </tasks>
                             </configuration>
                             <goals>
@@ -74,9 +76,7 @@
                     <configuration>
                         <classesDirectory>${project.basedir}/target/native</classesDirectory>
                         <includes>
-                            <include>**/*.so</include>
-                            <include>**/*.dylib</include>
-                            <include>**/*.dll</include>
+                            <include>**/*</include>
                         </includes>
                     </configuration>
                 </plugin>
