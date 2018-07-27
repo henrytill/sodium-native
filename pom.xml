@@ -61,7 +61,6 @@
                                 <tasks>
                                     <mkdir dir="${project.basedir}/target/native/coop/rchain/sodium_native/linux-x86_64"/>
                                     <mkdir dir="${project.basedir}/target/native/coop/rchain/sodium_native/osx-x86_64"/>
-                                    <mkdir dir="${project.basedir}/target/native/coop/rchain/sodium_native/windows-x86_64"/>
                                 </tasks>
                             </configuration>
                             <goals>
@@ -113,14 +112,6 @@
 
     <profiles>
         <profile>
-            <id>release-tag</id>
-            <modules>
-                <module>linux-x86_64</module>
-                <module>windows-x86_64</module>
-                <module>osx-x86_64</module>
-            </modules>
-        </profile>
-        <profile>
             <id>linux</id>
             <activation>
                 <os>
@@ -130,7 +121,6 @@
             </activation>
             <modules>
                 <module>linux-x86_64</module>
-                <module>windows-x86_64</module>
             </modules>
         </profile>
         <profile>
